@@ -13,13 +13,14 @@ import bl.Sender;
  */
 public class RadiaDialog extends javax.swing.JDialog {
 
-    private Sender sender;                                                      // = new Sender("a", 23., "am")
-    private boolean ok = false;
+    private Sender sender;
+    private boolean ok = true;
 
     /**
      * Creates new form RadiaDialog
      */
     public RadiaDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -61,7 +62,12 @@ public class RadiaDialog extends javax.swing.JDialog {
         getContentPane().add(jLabel2);
 
         tfFre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfFre.setText("69");
+        tfFre.setText("100");
+        tfFre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFreActionPerformed(evt);
+            }
+        });
         getContentPane().add(tfFre);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -94,7 +100,7 @@ public class RadiaDialog extends javax.swing.JDialog {
     private void onOK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onOK
         // TODO add your handling code here:
         initSender();
-        ok = true;        
+        ok = true;
         this.dispose();
     }//GEN-LAST:event_onOK
 
@@ -103,6 +109,10 @@ public class RadiaDialog extends javax.swing.JDialog {
         ok = false;
         this.dispose();
     }//GEN-LAST:event_onCancel
+
+    private void tfFreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFreActionPerformed
 
     public boolean isOk() {
         return ok;

@@ -16,6 +16,7 @@ public class RadioModel extends AbstractTableModel {
 
     private LinkedList<Sender> list = new LinkedList<>();
     private String[] colNames = {"Sender", "Frequenz", "Band"};
+    private boolean show = true;
 
     public RadioModel() {
         list.add(new Sender("Erster", 20., "AM"));
@@ -23,7 +24,12 @@ public class RadioModel extends AbstractTableModel {
 
     public void addSender(Sender s) {
         list.add(s);
-        fireTableCellUpdated(0, list.size());
+        fireTableDataChanged();
+    }
+
+    public void showBand(boolean show) {
+        this.show = show;
+        fireTableStructureChanged();
     }
 
     @Override
@@ -33,24 +39,24 @@ public class RadioModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return colNames.length;
+        return show ? colNames.length : colNames.length - 1;
     }
 
     @Override
     public Object getValueAt(int i, int i1) {
-        Sender s = list.get(i);
 
-        switch (i1)
-        {
-            case 1:
-                return s.getSenderName();
-            case 2:
-                return s.getFrequenz() + " Hz";
-            case 3:
-                return s.getBand();
-            default:
-                return "Error";
-        }
+//        switch (i1)
+//        {
+//            case 1:
+//                return s.getSenderName();
+//            case 2:
+//                return s.getFrequenz() + " Hz";
+//            case 3:
+//                return s.getBand();
+//            default:
+//                return "Error";
+//        }
+        return list.get(i);
     }
 
 }

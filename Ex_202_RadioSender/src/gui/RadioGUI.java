@@ -6,6 +6,7 @@
 package gui;
 
 import bl.RadioModel;
+import bl.RadioRenderer;
 import bl.Sender;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
@@ -18,7 +19,7 @@ public class RadioGUI extends javax.swing.JFrame {
 
     RadioModel rm = new RadioModel();
     DefaultTableColumnModel dtcm;
-    int width = 0;
+    RadiaDialog rd = new RadiaDialog(this, true);
 
     /**
      * Creates new form RadioGUI
@@ -45,6 +46,7 @@ public class RadioGUI extends javax.swing.JFrame {
         }
         taTable.setModel(rm);
         taTable.setColumnModel(dtcm);
+        taTable.setDefaultRenderer(Object.class, new RadioRenderer());
     }
 
     /**
@@ -88,9 +90,7 @@ public class RadioGUI extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
-
-        jScrollPane1.setComponentPopupMenu(jPopupMenu1);
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         taTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,6 +103,7 @@ public class RadioGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        taTable.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(taTable);
 
         getContentPane().add(jScrollPane1);
@@ -112,29 +113,22 @@ public class RadioGUI extends javax.swing.JFrame {
 
     private void onHide(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onHide
         // TODO add your handling code here:
-        width = dtcm.getColumn(2).getWidth();
-        System.out.println(width);
-        dtcm.getColumn(2).setWidth(0);                                          //funktioniert noch nicht
+        rm.showBand(false);
     }//GEN-LAST:event_onHide
 
     private void onShow(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onShow
         // TODO add your handling code here:
-        dtcm.getColumn(2).setWidth(0);
+        rm.showBand(true);
     }//GEN-LAST:event_onShow
 
     private void Add(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add
         // TODO add your handling code here:
-        Sender s = new Sender("abc", 30., "bcm");
-//        rm.addSender(s);
-
-        RadiaDialog rd = new RadiaDialog(this, true);
         rd.setVisible(true);
         if(rd.isOk())
         {
             Sender sender = rd.getSender();
             rm.addSender(sender);
         }
-        taTable.updateUI();
     }//GEN-LAST:event_Add
 
     /**
